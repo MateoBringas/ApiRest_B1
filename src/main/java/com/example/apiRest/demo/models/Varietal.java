@@ -1,20 +1,20 @@
 package com.example.apiRest.demo.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Varietal {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String descripcion;
+    private Double porcentajeComposicion;
 
-    private String nombre;
+    @OneToOne(cascade = CascadeType.ALL)
+    private TipoUva tipoUva;
 
     // Getters y Setters
-
     public Long getId() {
         return id;
     }
@@ -23,11 +23,27 @@ public class Varietal {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public Double getPorcentajeComposicion() {
+        return porcentajeComposicion;
+    }
+
+    public void setPorcentajeComposicion(Double porcentajeComposicion) {
+        this.porcentajeComposicion = porcentajeComposicion;
+    }
+
+    public TipoUva getTipoUva() {
+        return tipoUva;
+    }
+
+    public void setTipoUva(TipoUva tipoUva) {
+        this.tipoUva = tipoUva;
     }
 }

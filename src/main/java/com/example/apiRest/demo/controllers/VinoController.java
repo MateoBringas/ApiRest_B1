@@ -1,11 +1,14 @@
 package com.example.apiRest.demo.controllers;
 
-
 import com.example.apiRest.demo.models.Maridaje;
+import com.example.apiRest.demo.models.Resenia;
+import com.example.apiRest.demo.models.Varietal;
+import com.example.apiRest.demo.models.TipoUva;
 import com.example.apiRest.demo.models.Vino;
 import com.example.apiRest.demo.repository.BodegaRepository;
 import com.example.apiRest.demo.repository.MaridajeRepository;
 import com.example.apiRest.demo.repository.ReseniaRepository;
+import com.example.apiRest.demo.repository.TipoUvaRepository;
 import com.example.apiRest.demo.repository.VarietalRepository;
 import com.example.apiRest.demo.repository.VinoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +37,9 @@ public class VinoController {
     @Autowired
     private MaridajeRepository maridajeRepository;
 
+    @Autowired
+    private TipoUvaRepository tipoUvaRepository;
+
     @GetMapping
     public ResponseEntity<?> getVinos() {
         List<Vino> vinos = vinoRepository.findAll();
@@ -52,14 +58,25 @@ public class VinoController {
                 bodegaRepository.save(vino.getBodega());
             }
 
-            // Guardar la reseña si no existe
-            if (vino.getResenia() != null && vino.getResenia().getId() == null) {
-                reseniaRepository.save(vino.getResenia());
+            // Guardar las reseñas si no existen
+            if (vino.getResenia() != null) {
+                for (Resenia resenia : vino.getResenia()) {
+                    if (resenia.getId() == null) {
+                        reseniaRepository.save(resenia);
+                    }
+                }
             }
 
-            // Guardar el varietal si no existe
-            if (vino.getVarietal() != null && vino.getVarietal().getId() == null) {
-                varietalRepository.save(vino.getVarietal());
+            // Guardar los varietales y sus tipos de uva si no existen
+            if (vino.getVarietal() != null) {
+                for (Varietal varietal : vino.getVarietal()) {
+                    if (varietal.getTipoUva() != null && varietal.getTipoUva().getId() == null) {
+                        tipoUvaRepository.save(varietal.getTipoUva());
+                    }
+                    if (varietal.getId() == null) {
+                        varietalRepository.save(varietal);
+                    }
+                }
             }
 
             // Guardar los maridajes si no existen

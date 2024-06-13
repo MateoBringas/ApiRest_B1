@@ -16,26 +16,19 @@ public class Vino {
     private String notaDeCataBodega;
     private Double precioARS;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Bodega bodega;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Resenia resenia;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Resenia> resenia;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    private Varietal varietal;
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Varietal> varietal;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "vino_maridaje",
-            joinColumns = @JoinColumn(name = "vino_id"),
-            inverseJoinColumns = @JoinColumn(name = "maridaje_id")
-    )
+    @OneToMany(cascade = CascadeType.ALL)
     private Set<Maridaje> maridaje;
 
     // Getters y Setters
-    // Constructor
-    // Otros métodos según sea necesario
 
     public Long getId() {
         return id;
@@ -93,19 +86,19 @@ public class Vino {
         this.bodega = bodega;
     }
 
-    public Resenia getResenia() {
+    public Set<Resenia> getResenia() {
         return resenia;
     }
 
-    public void setResenia(Resenia resenia) {
+    public void setResenia(Set<Resenia> resenia) {
         this.resenia = resenia;
     }
 
-    public Varietal getVarietal() {
+    public Set<Varietal> getVarietal() {
         return varietal;
     }
 
-    public void setVarietal(Varietal varietal) {
+    public void setVarietal(Set<Varietal> varietal) {
         this.varietal = varietal;
     }
 

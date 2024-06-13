@@ -1,8 +1,8 @@
 package com.example.apiRest.demo.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.Date;
 
 @Entity
 public class Resenia {
@@ -10,8 +10,13 @@ public class Resenia {
     @Id
     @GeneratedValue
     private Long id;
+    private String comentario;
+    private Boolean esPremium;
+    private Date fechaResenia;
+    private Integer puntaje;
 
-    private String contenido;
+    @OneToOne
+    private Vino vino;
 
     // Getters y Setters
 
@@ -23,11 +28,43 @@ public class Resenia {
         this.id = id;
     }
 
-    public String getContenido() {
-        return contenido;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setContenido(String contenido) {
-        this.contenido = contenido;
+    public void setComentario(String contenido) {
+        this.comentario = contenido;
+    }
+
+    public Boolean getEsPremium() {
+        return esPremium;
+    }
+
+    public void setEsPremium(Boolean esPremium) {
+        this.esPremium = esPremium;
+    }
+
+    public Date getFechaResenia() {
+        return fechaResenia;
+    }
+
+    public void setFechaResenia(Date fechaResenia) {
+        this.fechaResenia = fechaResenia;
+    }
+
+    public Integer getPuntaje() {
+        return puntaje;
+    }
+
+    public void setPuntaje(Integer puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public Vino getVino() {
+        return vino;
+    }
+
+    public void setVino(Vino vino) {
+        this.vino = vino;
     }
 }

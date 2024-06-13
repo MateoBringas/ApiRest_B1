@@ -5,15 +5,15 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 @Entity
-public class Maridaje {
-
+public class TipoUva {
     @Id
     @GeneratedValue
     private Long id;
-    private String nombre;
-    private String descripcion;
 
-    // Getters y Setters
+    private String descripcion;
+    private String nombre;
+
+    //GETTERS Y SETTERS
 
     public Long getId() {
         return id;
@@ -23,19 +23,19 @@ public class Maridaje {
         this.id = id;
     }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
     public String getDescripcion() {
         return descripcion;
     }
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
